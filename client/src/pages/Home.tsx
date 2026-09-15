@@ -11,25 +11,22 @@ import {
   PhoneCall,
   Flame,
   ArrowRight,
-  MapPin,
   CalendarCheck,
   BadgePercent,
   SlidersHorizontal,
   ChevronRight,
   Check,
-  HelpCircle
 } from "lucide-react";
 
-// Número de WhatsApp solicitado y helper para construir enlaces wa.me
 const WHATSAPP_NUMBER = "+59896189551";
 const WHATSAPP_BASE_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Hola, necesito un servicio de urgencia en mi hogar"
+  "Hola, necesito un servicio de urgencia en mi hogar",
 )}`;
 
 const buildWhatsAppUrl = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-const LOGO_SRC = "/manus-storage/277773937_471972211172070_4001061534051236060_n_301748f9.jpg";
+const LOGO_SRC = "/logo-myk.jpg";
 
 export default function Home() {
   const [selectedService, setSelectedService] = useState<string>("Fontanería Express");
@@ -39,15 +36,13 @@ export default function Home() {
 
   const handleCustomWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
-    // El mensaje se construye con los valores actuales del formulario y se
-    // convierte en un enlace wa.me listo para abrir el chat del negocio.
     const message = [
       "Hola Multi-Servicios MYK, solicito un técnico a domicilio.",
       `Servicio: ${selectedService}`,
       `Urgencia: ${urgencyLevel}`,
       `Zona: ${zone || "No especificada"}`,
       `Detalle: ${customNote || "No especificado"}`,
-      "Por favor indíquenme disponibilidad inmediata para el día de hoy."
+      "Por favor indíquenme disponibilidad inmediata para el día de hoy.",
     ].join("\n");
 
     const dynamicWhatsAppUrl = buildWhatsAppUrl(message);
@@ -61,778 +56,80 @@ export default function Home() {
         <div className="container flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 font-medium">
             <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span className="text-emerald-400 font-bold uppercase tracking-wider text-[11px] sm:text-xs">
-              Guardia Activa Hoy
-            </span>
+            <span className="text-emerald-400 font-bold uppercase tracking-wider text-[11px] sm:text-xs">Guardia Activa Hoy</span>
             <span className="hidden sm:inline text-slate-400">|</span>
-            <span className="hidden sm:inline text-slate-300">
-              Técnicos móviles listos para fontanería y electricidad en tu hogar
-            </span>
+            <span className="hidden sm:inline text-slate-300">Técnicos móviles listos para fontanería y electricidad en tu hogar</span>
           </div>
           <div className="flex items-center gap-4 text-xs font-semibold text-slate-200">
-            <span className="flex items-center gap-1.5 text-amber-300">
-              <Clock className="w-3.5 h-3.5" /> Llegada estimada en 45 a 90 min
-            </span>
-            <a
-              href="tel:+59896189551"
-              className="hover:text-white transition-colors flex items-center gap-1 text-slate-300"
-            >
-              <PhoneCall className="w-3.5 h-3.5 text-sky-400" /> +598 96 189 551
-            </a>
+            <span className="flex items-center gap-1.5 text-amber-300"><Clock className="w-3.5 h-3.5" /> Llegada estimada en 45 a 90 min</span>
+            <a href="tel:+59896189551" className="hover:text-white transition-colors flex items-center gap-1 text-slate-300"><PhoneCall className="w-3.5 h-3.5 text-sky-400" /> +598 96 189 551</a>
           </div>
         </div>
       </div>
 
-      {/* Navegación Corporativa */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
         <div className="container flex items-center justify-between py-3">
           <a href="#" className="flex items-center gap-3 group">
-            <div className="relative overflow-hidden rounded-xl border border-slate-200 shadow-sm bg-white p-0.5">
-              <img
-                src={LOGO_SRC}
-                alt="Logo Multi-Servicios MYK"
-                className="w-11 h-11 object-cover rounded-lg group-hover:scale-105 transition-transform duration-200"
-              />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-xl font-extrabold tracking-tight text-slate-900 font-display">
-                  Multi-Servicios <span className="text-sky-600">MYK</span>
-                </span>
-              </div>
-              <p className="text-[11px] font-semibold tracking-wide text-slate-500 uppercase">
-                Fontanería Express & Electricidad en el Día
-              </p>
-            </div>
+            <div className="relative overflow-hidden rounded-xl border border-slate-200 shadow-sm bg-white p-0.5"><img src={LOGO_SRC} alt="Logo Multi-Servicios MYK" className="w-11 h-11 object-cover rounded-lg group-hover:scale-105 transition-transform duration-200" /></div>
+            <div><span className="text-xl font-extrabold tracking-tight text-slate-900 font-display">Multi-Servicios <span className="text-sky-600">MYK</span></span><p className="text-[11px] font-semibold tracking-wide text-slate-500 uppercase">Fontanería Express & Electricidad en el Día</p></div>
           </a>
-
-          {/* Menú enlaces ancla (escritorio) */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-700">
-            <a href="#fontaneria" className="hover:text-sky-600 transition-colors">
-              Fontanería Express
-            </a>
-            <a href="#electricidad" className="hover:text-sky-600 transition-colors">
-              Electricidad Básica
-            </a>
-            <a href="#por-que-elegirnos" className="hover:text-sky-600 transition-colors">
-              ¿Por qué Elegirnos?
-            </a>
-            <a href="#proceso" className="hover:text-sky-600 transition-colors">
-              Cómo Funciona
-            </a>
-          </nav>
-
-          {/* Botón Cabecera */}
-          <a
-            href={WHATSAPP_BASE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-95"
-          >
-            <WhatsAppIcon className="w-4 h-4 fill-current" />
-            <span className="hidden sm:inline">Pedir Técnico Hoy</span>
-            <span className="sm:hidden">WhatsApp</span>
-          </a>
+          <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-700"><a href="#fontaneria" className="hover:text-sky-600 transition-colors">Fontanería Express</a><a href="#electricidad" className="hover:text-sky-600 transition-colors">Electricidad Básica</a><a href="#por-que-elegirnos" className="hover:text-sky-600 transition-colors">¿Por qué Elegirnos?</a><a href="#proceso" className="hover:text-sky-600 transition-colors">Cómo Funciona</a></nav>
+          <a href={WHATSAPP_BASE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-sm hover:shadow-md transition-all active:scale-95"><WhatsAppIcon className="w-4 h-4 fill-current" /><span className="hidden sm:inline">Pedir Técnico Hoy</span><span className="sm:hidden">WhatsApp</span></a>
         </div>
       </header>
 
-      {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden bg-gradient-to-b from-sky-950 via-slate-900 to-slate-900 text-white pt-12 pb-20 lg:pt-20 lg:pb-28">
-        {/* Glow de fondo */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-r from-sky-500/20 via-cyan-400/10 to-amber-500/10 blur-3xl pointer-events-none" />
-
-        <div className="container relative z-10">
-          <div className="grid lg:grid-cols-12 gap-10 items-center">
-            {/* Texto y llamado principal */}
-            <div className="lg:col-span-7 space-y-6 text-left">
-              {/* Badge de atención en el día */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-900/70 border border-sky-400/30 text-sky-200 text-xs sm:text-sm font-medium shadow-inner">
-                <span className="flex h-2 w-2 rounded-full bg-amber-400"></span>
-                <span>Asistencia Técnica Urgente en el Hogar</span>
-                <span className="text-amber-300 font-bold ml-1">· Hoy Mismo</span>
-              </div>
-
-              {/* Título principal solicitado */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-extrabold tracking-tight leading-[1.12] font-display text-white">
-                Solución Inmediata a Problemas de{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-300 to-cyan-200">
-                  Fontanería
-                </span>{" "}
-                y{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-200">
-                  Electricidad
-                </span>{" "}
-                en tu Hogar
-              </h1>
-
-              {/* Subtítulo solicitado */}
-              <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl font-normal leading-relaxed">
-                Técnicos calificados en tu puerta el mismo día. Atención rápida, limpia y garantizada.
-                Resolvemos tu avería doméstica sin demoras ni sobrecostos.
-              </p>
-
-              {/* Puntos rápidos de valor */}
-              <div className="grid sm:grid-cols-3 gap-3 pt-2 text-xs sm:text-sm text-slate-200">
-                <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg p-2.5 backdrop-blur-xs">
-                  <Clock className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>Respuesta prioritaria en minutos</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg p-2.5 backdrop-blur-xs">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Personal verificado y confiable</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg p-2.5 backdrop-blur-xs">
-                  <BadgePercent className="w-4 h-4 text-sky-400 shrink-0" />
-                  <span>Presupuesto claro antes de iniciar</span>
-                </div>
-              </div>
-
-              {/* Botón CTA principal solicitado */}
-              <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <a
-                  href={WHATSAPP_BASE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-xl shadow-emerald-950/40 hover:shadow-emerald-900/60 transition-all duration-200 active:scale-98 overflow-hidden"
-                >
-                  <WhatsAppIcon className="w-6 h-6 fill-current transition-transform group-hover:scale-110" />
-                  <span>¡Solicitar Técnico por WhatsApp!</span>
-                  <ArrowRight className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1" />
-                </a>
-
-                <div className="flex items-center justify-center gap-2 text-xs text-slate-400 sm:justify-start">
-                  <span className="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
-                  <span>Sin costo por consulta previa vía chat</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Tarjeta interactiva rápida / Mini cotizador */}
-            <div className="lg:col-span-5">
-              <div className="bg-white rounded-3xl p-6 sm:p-7 shadow-2xl text-slate-900 border border-slate-100 relative">
-                <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
-                  <div>
-                    <span className="text-xs font-bold text-sky-700 uppercase tracking-wider block">
-                      Despacho Inmediato
-                    </span>
-                    <h2 className="text-lg font-bold text-slate-900">Configura tu solicitud</h2>
-                  </div>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full">
-                    <Clock className="w-3 h-3 text-amber-700" /> Atención Hoy
-                  </span>
-                </div>
-
-                <form onSubmit={handleCustomWhatsApp} className="space-y-4 text-sm">
-                  <div>
-                    <label className="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wide">
-                      ¿Qué problema tienes en casa?
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setSelectedService("Fontanería Express")}
-                        className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
-                          selectedService === "Fontanería Express"
-                            ? "border-sky-600 bg-sky-50 text-sky-900 ring-2 ring-sky-500/20"
-                            : "border-slate-200 hover:border-slate-300 text-slate-700"
-                        }`}
-                      >
-                        <Droplets className="w-4 h-4 text-sky-600 mt-0.5 shrink-0" />
-                        <div>
-                          <div className="font-bold text-xs">Fontanería Express</div>
-                          <div className="text-[11px] text-slate-500">Fugas, grifos, destapes</div>
-                        </div>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setSelectedService("Electricidad Básica")}
-                        className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${
-                          selectedService === "Electricidad Básica"
-                            ? "border-amber-500 bg-amber-50/70 text-slate-900 ring-2 ring-amber-500/20"
-                            : "border-slate-200 hover:border-slate-300 text-slate-700"
-                        }`}
-                      >
-                        <Zap className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
-                        <div>
-                          <div className="font-bold text-xs">Electricidad Hogar</div>
-                          <div className="text-[11px] text-slate-500">Cortos, llaves, lámparas</div>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wide">
-                      Nivel de urgencia
-                    </label>
-                    <select
-                      value={urgencyLevel}
-                      onChange={(e) => setUrgencyLevel(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500"
-                    >
-                      <option value="Urgencia Hoy Mismo">Urgencia Hoy Mismo (Lo antes posible)</option>
-                      <option value="Hoy en la tarde">Hoy durante la tarde</option>
-                      <option value="Programar con anticipación">Programar visita prioritaria</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wide">
-                      Barrio o Zona
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Ej. Centro, Pocitos, Buceo, Prado..."
-                      value={zone}
-                      onChange={(e) => setZone(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wide">
-                      Detalle breve (opcional)
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Ej: Fuga bajo mesada o llave térmica que salta"
-                      value={customNote}
-                      onChange={(e) => setCustomNote(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-md transition-all active:scale-98 text-sm"
-                  >
-                    <WhatsAppIcon className="w-4 h-4 fill-current" />
-                    <span>Enviar Solicitud Inmediata por WhatsApp</span>
-                  </button>
-
-                  <p className="text-[11px] text-center text-slate-500">
-                    Respuesta humana en WhatsApp en menos de 5 minutos.
-                  </p>
-                </form>
-              </div>
-            </div>
-          </div>
+        <div className="container relative z-10"><div className="grid lg:grid-cols-12 gap-10 items-center"><div className="lg:col-span-7 space-y-6 text-left">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-900/70 border border-sky-400/30 text-sky-200 text-xs sm:text-sm font-medium shadow-inner"><span className="flex h-2 w-2 rounded-full bg-amber-400" /><span>Asistencia Técnica Urgente en el Hogar</span><span className="text-amber-300 font-bold ml-1">· Hoy Mismo</span></div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-extrabold tracking-tight leading-[1.12] font-display text-white">Solución Inmediata a Problemas de <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-sky-300 to-cyan-200">Fontanería</span> y <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-200">Electricidad</span> en tu Hogar</h1>
+          <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl font-normal leading-relaxed">Técnicos calificados en tu puerta el mismo día. Atención rápida, limpia y garantizada. Resolvemos tu avería doméstica sin demoras ni sobrecostos.</p>
+          <div className="grid sm:grid-cols-3 gap-3 pt-2 text-xs sm:text-sm text-slate-200"><div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg p-2.5 backdrop-blur-xs"><Clock className="w-4 h-4 text-amber-400 shrink-0" /><span>Respuesta prioritaria en minutos</span></div><div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg p-2.5 backdrop-blur-xs"><ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" /><span>Personal verificado y confiable</span></div><div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg p-2.5 backdrop-blur-xs"><BadgePercent className="w-4 h-4 text-sky-400 shrink-0" /><span>Presupuesto claro antes de iniciar</span></div></div>
+          <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"><a href={WHATSAPP_BASE_URL} target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-xl shadow-emerald-950/40 hover:shadow-emerald-900/60 transition-all duration-200 active:scale-98 overflow-hidden"><WhatsAppIcon className="w-6 h-6 fill-current transition-transform group-hover:scale-110" /><span>¡Solicitar Técnico por WhatsApp!</span><ArrowRight className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1" /></a><div className="flex items-center justify-center gap-2 text-xs text-slate-400 sm:justify-start"><span className="inline-block w-2 h-2 rounded-full bg-emerald-400" /><span>Sin costo por consulta previa vía chat</span></div></div>
         </div>
+
+        <div className="lg:col-span-5"><div className="bg-white rounded-3xl p-6 sm:p-7 shadow-2xl text-slate-900 border border-slate-100 relative"><div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-4"><div><span className="text-xs font-bold text-sky-700 uppercase tracking-wider block">Despacho Inmediato</span><h2 className="text-lg font-bold text-slate-900">Configura tu solicitud</h2></div><span className="inline-flex items-center gap-1 text-[11px] font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full"><Clock className="w-3 h-3 text-amber-700" /> Atención Hoy</span></div>
+          <form onSubmit={handleCustomWhatsApp} className="space-y-4 text-sm"><div><label className="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wide">¿Qué problema tienes en casa?</label><div className="grid grid-cols-2 gap-2"><button type="button" onClick={() => setSelectedService("Fontanería Express")} className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${selectedService === "Fontanería Express" ? "border-sky-600 bg-sky-50 text-sky-900 ring-2 ring-sky-500/20" : "border-slate-200 hover:border-slate-300 text-slate-700"}`}><Droplets className="w-4 h-4 text-sky-600 mt-0.5 shrink-0" /><div><div className="font-bold text-xs">Fontanería Express</div><div className="text-[11px] text-slate-500">Fugas, grifos, destapes</div></div></button><button type="button" onClick={() => setSelectedService("Electricidad Básica")} className={`p-3 rounded-xl border text-left flex items-start gap-2.5 transition-all ${selectedService === "Electricidad Básica" ? "border-amber-500 bg-amber-50/70 text-slate-900 ring-2 ring-amber-500/20" : "border-slate-200 hover:border-slate-300 text-slate-700"}`}><Zap className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" /><div><div className="font-bold text-xs">Electricidad Hogar</div><div className="text-[11px] text-slate-500">Cortos, llaves, lámparas</div></div></button></div></div>
+            <div><label className="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wide">Nivel de urgencia</label><select value={urgencyLevel} onChange={(e) => setUrgencyLevel(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-slate-800 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500"><option value="Urgencia Hoy Mismo">Urgencia Hoy Mismo (Lo antes posible)</option><option value="Hoy en la tarde">Hoy durante la tarde</option><option value="Programar con anticipación">Programar visita prioritaria</option></select></div>
+            <div><label className="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wide">Barrio o Zona</label><input type="text" placeholder="Ej. Centro, Pocitos, Buceo, Prado..." value={zone} onChange={(e) => setZone(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500" /></div>
+            <div><label className="block font-semibold text-slate-700 mb-1 text-xs uppercase tracking-wide">Detalle breve (opcional)</label><input type="text" placeholder="Ej: Fuga bajo mesada o llave térmica que salta" value={customNote} onChange={(e) => setCustomNote(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500" /></div>
+            <button type="submit" className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-md transition-all active:scale-98 text-sm"><WhatsAppIcon className="w-4 h-4 fill-current" /><span>Enviar Solicitud Inmediata por WhatsApp</span></button><p className="text-[11px] text-center text-slate-500">Respuesta humana en WhatsApp en menos de 5 minutos.</p>
+          </form></div></div></div></div>
       </section>
 
-      {/* Franja de Garantías e Impacto */}
-      <div className="bg-slate-100 border-y border-slate-200 py-6">
-        <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center sm:text-left">
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-sky-100 text-sky-700 shrink-0">
-                <CalendarCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-900 text-sm">Atención en el Día</h4>
-                <p className="text-xs text-slate-600">Servicio de guardia express para emergencias</p>
-              </div>
-            </div>
+      <div className="bg-slate-100 border-y border-slate-200 py-6"><div className="container"><div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center sm:text-left"><div className="flex flex-col sm:flex-row items-center sm:items-start gap-3"><div className="p-2.5 rounded-xl bg-sky-100 text-sky-700 shrink-0"><CalendarCheck className="w-5 h-5" /></div><div><h4 className="font-bold text-slate-900 text-sm">Atención en el Día</h4><p className="text-xs text-slate-600">Servicio de guardia express para emergencias</p></div></div><div className="flex flex-col sm:flex-row items-center sm:items-start gap-3"><div className="p-2.5 rounded-xl bg-emerald-100 text-emerald-700 shrink-0"><ShieldCheck className="w-5 h-5" /></div><div><h4 className="font-bold text-slate-900 text-sm">Garantía por Escrito</h4><p className="text-xs text-slate-600">Trabajos limpios y respaldados</p></div></div><div className="flex flex-col sm:flex-row items-center sm:items-start gap-3"><div className="p-2.5 rounded-xl bg-amber-100 text-amber-700 shrink-0"><BadgePercent className="w-5 h-5" /></div><div><h4 className="font-bold text-slate-900 text-sm">Precios Claros</h4><p className="text-xs text-slate-600">Sin tarifas sorpresa ni letra chica</p></div></div><div className="flex flex-col sm:flex-row items-center sm:items-start gap-3"><div className="p-2.5 rounded-xl bg-blue-100 text-blue-700 shrink-0"><Wrench className="w-5 h-5" /></div><div><h4 className="font-bold text-slate-900 text-sm">Técnicos Verificados</h4><p className="text-xs text-slate-600">Herramientas profesionales y cuidado del hogar</p></div></div></div></div></div>
 
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-emerald-100 text-emerald-700 shrink-0">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-900 text-sm">Garantía por Escrito</h4>
-                <p className="text-xs text-slate-600">Trabajos limpios y respaldados</p>
-              </div>
-            </div>
+      <ServiceSections whatsappBaseUrl={WHATSAPP_BASE_URL} />
 
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-amber-100 text-amber-700 shrink-0">
-                <BadgePercent className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-900 text-sm">Precios Claros</h4>
-                <p className="text-xs text-slate-600">Sin tarifas sorpresa ni letra chica</p>
-              </div>
-            </div>
+      <section className="py-16 bg-gradient-to-r from-sky-900 via-slate-900 to-sky-950 text-white text-center"><div className="container max-w-3xl space-y-6"><div className="inline-flex p-3 rounded-2xl bg-white/10 backdrop-blur-md mb-2"><img src={LOGO_SRC} alt="Multi-Servicios MYK" className="w-16 h-16 object-cover rounded-xl border border-white/20 shadow-md" /></div><h2 className="text-3xl sm:text-4xl font-extrabold font-display">¿Tienes una avería urgente en casa hoy?</h2><p className="text-slate-300 text-base max-w-xl mx-auto">No arriesgues tus instalaciones ni pierdas tiempo. Deja la fontanería y la electricidad en manos de técnicos responsables de Multi-Servicios MYK.</p><a href={WHATSAPP_BASE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-xl transition-all active:scale-95"><WhatsAppIcon className="w-6 h-6 fill-current" /><span>¡Solicitar Técnico por WhatsApp!</span></a><p className="text-xs text-slate-400">Respuesta rápida · Teléfono directo: +598 96 189 551</p></div></section>
 
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-blue-100 text-blue-700 shrink-0">
-                <Wrench className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-bold text-slate-900 text-sm">Técnicos Verificados</h4>
-                <p className="text-xs text-slate-600">Herramientas profesionales y cuidado del hogar</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <footer className="bg-slate-950 text-slate-400 py-10 border-t border-slate-800 text-xs"><div className="container flex flex-col sm:flex-row items-center justify-between gap-6"><div className="flex items-center gap-3"><img src={LOGO_SRC} alt="Logo Multi-Servicios MYK" className="w-9 h-9 object-cover rounded-lg border border-slate-700" /><div><p className="font-bold text-slate-200 text-sm">Multi-Servicios MYK</p><p className="text-slate-500 text-[11px]">Fontanería Express & Intervenciones Eléctricas Básicas en el Día</p></div></div><div className="text-center sm:text-right space-y-1"><p className="text-slate-400">Contacto directo: <a href="tel:+59896189551" className="text-sky-400 hover:underline">+598 96 189 551</a></p><p className="text-slate-500 text-[11px]">© {new Date().getFullYear()} Multi-Servicios MYK. Todos los derechos reservados.</p></div></div></footer>
 
-      {/* 2. SERVICIO PRINCIPAL: FONTANERÍA EXPRESS */}
-      <section id="fontaneria" className="py-16 lg:py-24 bg-white relative">
-        <div className="container">
-          <div className="max-w-3xl mb-12">
-            <span className="text-xs font-bold text-sky-600 uppercase tracking-widest bg-sky-50 border border-sky-100 px-3 py-1 rounded-full inline-block mb-3">
-              Servicio Principal Destacado
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-display tracking-tight">
-              Fontanería Express{" "}
-              <span className="text-sky-600 font-bold">(Atención en el Día)</span>
-            </h2>
-            <p className="mt-3 text-base sm:text-lg text-slate-600">
-              Una fuga o un atasco no puede esperar a mañana. Nuestro equipo de fontaneros llega con
-              equipo completo para diagnosticar, sellar y reparar en la misma visita.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Tarjeta 1 */}
-            <div className="group rounded-2xl p-6 bg-slate-50 border border-slate-200/80 hover:border-sky-400 hover:shadow-lg transition-all duration-200 flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-sky-600 text-white flex items-center justify-center mb-5 shadow-md shadow-sky-600/20 group-hover:scale-110 transition-transform">
-                  <Droplets className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
-                  Reparación de Fugas y Filtraciones
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                  Detección y sellado rápido de pérdidas de agua en tuberías visibles y empotradas,
-                  bajo mesadas, llaves de paso y sanitarios.
-                </p>
-                <ul className="space-y-2 text-xs font-medium text-slate-700">
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Control urgente de humedad y goteras</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Materiales de sellado de alta resistencia</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-500">Llegada Express</span>
-                <a
-                  href={`${WHATSAPP_BASE_URL}&text=${encodeURIComponent(
-                    "Hola Multi-Servicios MYK, tengo una fuga o filtración urgente en casa."
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-bold text-sky-700 hover:text-sky-900 inline-flex items-center gap-1"
-                >
-                  Pedir técnico <ChevronRight className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            </div>
-
-            {/* Tarjeta 2 */}
-            <div className="group rounded-2xl p-6 bg-slate-50 border border-slate-200/80 hover:border-sky-400 hover:shadow-lg transition-all duration-200 flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-sky-600 text-white flex items-center justify-center mb-5 shadow-md shadow-sky-600/20 group-hover:scale-110 transition-transform">
-                  <Wrench className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
-                  Destapes Urgentes & Desagües
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                  Desobstrucción inmediata de inodoros, piletas, rejillas de baño y cocinas sin
-                  dañar las cañerías del hogar.
-                </p>
-                <ul className="space-y-2 text-xs font-medium text-slate-700">
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Maquinaria y resortes mecánicos limpios</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Prueba de flujo y desagote in situ</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-500">Desbloqueo hoy</span>
-                <a
-                  href={`${WHATSAPP_BASE_URL}&text=${encodeURIComponent(
-                    "Hola Multi-Servicios MYK, necesito un destape urgente en casa hoy."
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-bold text-sky-700 hover:text-sky-900 inline-flex items-center gap-1"
-                >
-                  Pedir técnico <ChevronRight className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            </div>
-
-            {/* Tarjeta 3 */}
-            <div className="group rounded-2xl p-6 bg-slate-50 border border-slate-200/80 hover:border-sky-400 hover:shadow-lg transition-all duration-200 flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-sky-600 text-white flex items-center justify-center mb-5 shadow-md shadow-sky-600/20 group-hover:scale-110 transition-transform">
-                  <Flame className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
-                  Calentadores / Boilers y Grifería
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                  Sustitución de mezcladoras, flexibles, cambio de grifería monomando y corrección de
-                  fallos de agua caliente o goteo continuo.
-                </p>
-                <ul className="space-y-2 text-xs font-medium text-slate-700">
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Instalación segura con juntas reforzadas</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Revisión de presión y temperatura</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between">
-                <span className="text-xs font-semibold text-slate-500">Instalación en el día</span>
-                <a
-                  href={`${WHATSAPP_BASE_URL}&text=${encodeURIComponent(
-                    "Hola Multi-Servicios MYK, necesito asistencia con calentador/boiler o cambio de grifería."
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-bold text-sky-700 hover:text-sky-900 inline-flex items-center gap-1"
-                >
-                  Pedir técnico <ChevronRight className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Banner de Rapidez de Llegada */}
-          <div className="mt-8 rounded-2xl bg-gradient-to-r from-sky-900 to-slate-900 text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-sky-800 shadow-lg">
-            <div className="space-y-1 text-center sm:text-left">
-              <span className="text-amber-400 font-bold text-xs uppercase tracking-wider flex items-center justify-center sm:justify-start gap-1">
-                <Clock className="w-4 h-4" /> Despacho de Inmediato
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold">
-                ¿Agua filtrando o desagüe colapsado en este momento?
-              </h3>
-              <p className="text-slate-300 text-sm max-w-xl">
-                Nuestros móviles van equipados con repuestos universales para reparar el problema en la primera visita.
-              </p>
-            </div>
-            <a
-              href={WHATSAPP_BASE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-md transition-transform active:scale-95 shrink-0 text-sm"
-            >
-              <WhatsAppIcon className="w-4 h-4 fill-current" />
-              <span>Solicitar Fontanero Ahora</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. SERVICIO SECUNDARIO: ELECTRICIDAD BÁSICA PARA EL HOGAR */}
-      <section id="electricidad" className="py-16 lg:py-24 bg-slate-900 text-white relative">
-        <div className="container">
-          <div className="max-w-3xl mb-12">
-            <span className="text-xs font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full inline-block mb-3">
-              Servicio Esencial en el Hogar
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display tracking-tight">
-              Electricidad Básica para el Hogar
-            </h2>
-            <p className="mt-3 text-base sm:text-lg text-slate-300">
-              Intervenciones seguras con técnicos capacitados para resolver fallas eléctricas
-              peligrosas o renovar las conexiones de tus espacios.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Box 1 */}
-            <div className="bg-slate-800/80 rounded-2xl p-6 border border-slate-700/80 hover:border-amber-400/60 transition-all duration-200">
-              <div className="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-400/20 flex items-center justify-center mb-4">
-                <AlertTriangle className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-lg text-white mb-2">Cortocircuitos y Sobrecargas</h3>
-              <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                Diagnóstico express si salta la llave general, corte repentino de energía o cables con olor a recalentamiento.
-              </p>
-              <span className="text-[11px] font-semibold text-amber-300 flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" /> Atención prioritaria
-              </span>
-            </div>
-
-            {/* Box 2 */}
-            <div className="bg-slate-800/80 rounded-2xl p-6 border border-slate-700/80 hover:border-amber-400/60 transition-all duration-200">
-              <div className="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-400/20 flex items-center justify-center mb-4">
-                <SlidersHorizontal className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-lg text-white mb-2">Tableros y Llaves Térmicas</h3>
-              <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                Revisión, balanceo y cambio de disyuntores diferenciales, termomagnéticas y orden de cables principales.
-              </p>
-              <span className="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5" /> Normas de seguridad
-              </span>
-            </div>
-
-            {/* Box 3 */}
-            <div className="bg-slate-800/80 rounded-2xl p-6 border border-slate-700/80 hover:border-amber-400/60 transition-all duration-200">
-              <div className="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-400/20 flex items-center justify-center mb-4">
-                <Zap className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-lg text-white mb-2">Contactos e Interruptores</h3>
-              <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                Reemplazo de enchufes quemados, colocación de nuevos puntos para electrodomésticos y pulsadores de luz.
-              </p>
-              <span className="text-[11px] font-semibold text-sky-400 flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> En el mismo día
-              </span>
-            </div>
-
-            {/* Box 4 */}
-            <div className="bg-slate-800/80 rounded-2xl p-6 border border-slate-700/80 hover:border-amber-400/60 transition-all duration-200">
-              <div className="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-400/20 flex items-center justify-center mb-4">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <h3 className="font-bold text-lg text-white mb-2">Lámparas y Ventiladores</h3>
-              <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                Instalación firme de plafones LED, luminarias decorativas, ventiladores de techo y focos de exterior.
-              </p>
-              <span className="text-[11px] font-semibold text-cyan-300 flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Acabado impecable
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-10 text-center">
-            <a
-              href={`${WHATSAPP_BASE_URL}&text=${encodeURIComponent(
-                "Hola Multi-Servicios MYK, requiero una intervención eléctrica básica en mi hogar hoy."
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-7 py-3.5 rounded-xl shadow-lg transition-transform active:scale-95 text-sm"
-            >
-              <WhatsAppIcon className="w-4 h-4 fill-slate-950" />
-              <span>Solicitar Electricista por WhatsApp</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. ¿POR QUÉ ELEGIRNOS? (BLOQUE DE CONFIANZA) */}
-      <section id="por-que-elegirnos" className="py-16 lg:py-24 bg-white relative">
-        <div className="container">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold text-sky-700 uppercase tracking-widest bg-sky-50 border border-sky-100 px-3 py-1 rounded-full inline-block mb-3">
-              Bloque de Confianza
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-display tracking-tight">
-              ¿Por qué elegir a Multi-Servicios MYK?
-            </h2>
-            <p className="mt-3 text-slate-600 text-base">
-              Combinamos velocidad de respuesta con estándares empresariales de seriedad, pulcritud y garantía.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Beneficio 1 */}
-            <div className="relative p-8 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-xs hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center mb-6">
-                <Clock className="w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Atención el Mismo Día</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                No tienes que esperar días para solucionar un imprevisto que paraliza tu casa.
-                Coordinamos al instante vía WhatsApp y despachamos un técnico en tu franja horaria solicitada.
-              </p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-bold text-sky-700">
-                <CheckCircle2 className="w-4 h-4" /> Despacho ágil en zona de cobertura
-              </div>
-            </div>
-
-            {/* Beneficio 2 */}
-            <div className="relative p-8 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-xs hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center mb-6">
-                <BadgePercent className="w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Precios Claros Sin Sorpresas</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Te informamos el costo antes de tocar una sola pieza. Diagnóstico transparente,
-                sin recargos ocultos ni facturas infladas al terminar el trabajo.
-              </p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-bold text-amber-800">
-                <CheckCircle2 className="w-4 h-4" /> Presupuesto previo acordado
-              </div>
-            </div>
-
-            {/* Beneficio 3 */}
-            <div className="relative p-8 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-xs hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center mb-6">
-                <ShieldCheck className="w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">
-                Garantía y Personal Verificado
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Técnicos de confianza, identificados y con experiencia comprobada.
-                Dejamos el área de trabajo limpia y respaldamos cada intervención con garantía real.
-              </p>
-              <div className="mt-6 flex items-center gap-2 text-xs font-bold text-emerald-800">
-                <CheckCircle2 className="w-4 h-4" /> Tranquilidad total para tu familia
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CÓMO FUNCIONA / PROCESO SENCILLO */}
-      <section id="proceso" className="py-16 bg-slate-50 border-t border-slate-200">
-        <div className="container">
-          <div className="text-center max-w-xl mx-auto mb-12">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-display">
-              ¿Cómo solicitar tu servicio en 3 pasos?
-            </h2>
-            <p className="text-sm text-slate-600 mt-2">
-              Proceso pensado para resolver emergencias desde tu móvil en menos de 2 minutos.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 relative">
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center relative shadow-xs">
-              <div className="w-10 h-10 rounded-full bg-sky-600 text-white font-bold text-base flex items-center justify-center mx-auto mb-4 shadow-sm">
-                1
-              </div>
-              <h3 className="font-bold text-base text-slate-900 mb-1">Escríbenos por WhatsApp</h3>
-              <p className="text-xs text-slate-600">
-                Envíanos una foto, audio o descripción de la avería para coordinar de inmediato.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center relative shadow-xs">
-              <div className="w-10 h-10 rounded-full bg-sky-600 text-white font-bold text-base flex items-center justify-center mx-auto mb-4 shadow-sm">
-                2
-              </div>
-              <h3 className="font-bold text-base text-slate-900 mb-1">Confirmamos Hora y Técnico</h3>
-              <p className="text-xs text-slate-600">
-                Te damos presupuesto inicial y te asignamos el técnico más cercano en tu zona.
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 text-center relative shadow-xs">
-              <div className="w-10 h-10 rounded-full bg-sky-600 text-white font-bold text-base flex items-center justify-center mx-auto mb-4 shadow-sm">
-                3
-              </div>
-              <h3 className="font-bold text-base text-slate-900 mb-1">Reparación en el Día</h3>
-              <p className="text-xs text-slate-600">
-                El técnico realiza el trabajo, prueba el funcionamiento y te entrega el servicio con garantía.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* LLAMADO A LA ACCIÓN FINAL ANTES DEL FOOTER */}
-      <section className="py-16 bg-gradient-to-r from-sky-900 via-slate-900 to-sky-950 text-white text-center">
-        <div className="container max-w-3xl space-y-6">
-          <div className="inline-flex p-3 rounded-2xl bg-white/10 backdrop-blur-md mb-2">
-            <img
-              src={LOGO_SRC}
-              alt="Multi-Servicios MYK"
-              className="w-16 h-16 object-cover rounded-xl border border-white/20 shadow-md"
-            />
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold font-display">
-            ¿Tienes una avería urgente en casa hoy?
-          </h2>
-          <p className="text-slate-300 text-base max-w-xl mx-auto">
-            No arriesgues tus instalaciones ni pierdas tiempo. Deja la fontanería y la electricidad en manos de técnicos responsables de Multi-Servicios MYK.
-          </p>
-          <div className="pt-2">
-            <a
-              href={WHATSAPP_BASE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base sm:text-lg px-8 py-4 rounded-2xl shadow-xl transition-all active:scale-95"
-            >
-              <WhatsAppIcon className="w-6 h-6 fill-current" />
-              <span>¡Solicitar Técnico por WhatsApp!</span>
-            </a>
-          </div>
-          <p className="text-xs text-slate-400">
-            Respuesta rápida · Teléfono directo: +598 96 189 551
-          </p>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="bg-slate-950 text-slate-400 py-10 border-t border-slate-800 text-xs">
-        <div className="container flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <img
-              src={LOGO_SRC}
-              alt="Logo Multi-Servicios MYK"
-              className="w-9 h-9 object-cover rounded-lg border border-slate-700"
-            />
-            <div>
-              <p className="font-bold text-slate-200 text-sm">Multi-Servicios MYK</p>
-              <p className="text-slate-500 text-[11px]">
-                Fontanería Express & Intervenciones Eléctricas Básicas en el Día
-              </p>
-            </div>
-          </div>
-
-          <div className="text-center sm:text-right space-y-1">
-            <p className="text-slate-400">
-              Contacto directo:{" "}
-              <a href="tel:+59896189551" className="text-sky-400 hover:underline">
-                +598 96 189 551
-              </a>
-            </p>
-            <p className="text-slate-500 text-[11px]">
-              © {new Date().getFullYear()} Multi-Servicios MYK. Todos los derechos reservados.
-            </p>
-          </div>
-        </div>
-      </footer>
-
-      {/* 5. LLAMADO A LA ACCIÓN FLOTANTE (STICKY CTA) */}
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2">
-        {/* Tooltip flotante en celulares y escritorio */}
-        <div className="hidden sm:flex items-center gap-2 bg-slate-900/90 text-white text-xs py-2 px-3.5 rounded-full shadow-lg border border-slate-700 backdrop-blur-md animate-fade-in">
-          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span className="font-semibold">¿Urgencia en casa? Escríbenos</span>
-        </div>
-
-        {/* Botón flotante WhatsApp */}
-        <a
-          href={WHATSAPP_BASE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Contactar por WhatsApp para atención en el día"
-          className="relative group flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 animate-pulse-glow"
-        >
-          <WhatsAppIcon className="w-7 h-7 sm:w-8 sm:h-8 fill-current" />
-          <span className="sr-only">¡Solicitar Técnico por WhatsApp!</span>
-        </a>
-      </div>
+      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2"><div className="hidden sm:flex items-center gap-2 bg-slate-900/90 text-white text-xs py-2 px-3.5 rounded-full shadow-lg border border-slate-700 backdrop-blur-md"><span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" /><span className="font-semibold">¿Urgencia en casa? Escríbenos</span></div><a href={WHATSAPP_BASE_URL} target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp para atención en el día" className="relative group flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 animate-pulse-glow"><WhatsAppIcon className="w-7 h-7 sm:w-8 sm:h-8 fill-current" /><span className="sr-only">¡Solicitar Técnico por WhatsApp!</span></a></div>
     </div>
   );
 }
 
-// Icono SVG oficial de WhatsApp para máxima fidelidad
+function ServiceSections({ whatsappBaseUrl }: { whatsappBaseUrl: string }) {
+  const plumbing = [
+    [Droplets, "Reparación de Fugas y Filtraciones", "Detección y sellado rápido de pérdidas de agua en tuberías, bajo mesadas, llaves de paso y sanitarios."],
+    [Wrench, "Destapes Urgentes & Desagües", "Desobstrucción inmediata de inodoros, piletas, rejillas de baño y cocinas sin dañar las cañerías."],
+    [Flame, "Calentadores / Boilers y Grifería", "Sustitución de mezcladoras, flexibles, grifería monomando y corrección de fallos de agua caliente."],
+  ] as const;
+  const electrical = [
+    [AlertTriangle, "Cortocircuitos y Sobrecargas", "Diagnóstico express si salta la llave general, hay cortes repentinos u olor a recalentamiento."],
+    [SlidersHorizontal, "Tableros y Llaves Térmicas", "Revisión, balanceo y cambio de disyuntores diferenciales y termomagnéticas."],
+    [Zap, "Contactos e Interruptores", "Reemplazo de enchufes quemados, nuevos puntos para electrodomésticos y pulsadores de luz."],
+    [Sparkles, "Lámparas y Ventiladores", "Instalación firme de plafones LED, luminarias, ventiladores de techo y focos de exterior."],
+  ] as const;
+  return <>
+    <section id="fontaneria" className="py-16 lg:py-24 bg-white relative"><div className="container"><div className="max-w-3xl mb-12"><span className="text-xs font-bold text-sky-600 uppercase tracking-widest bg-sky-50 border border-sky-100 px-3 py-1 rounded-full inline-block mb-3">Servicio Principal Destacado</span><h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-display tracking-tight">Fontanería Express <span className="text-sky-600 font-bold">(Atención en el Día)</span></h2><p className="mt-3 text-base sm:text-lg text-slate-600">Una fuga o un atasco no puede esperar a mañana. Nuestro equipo llega con equipo completo para diagnosticar, sellar y reparar en la misma visita.</p></div><div className="grid md:grid-cols-3 gap-6">{plumbing.map(([Icon, title, description]) => <div key={title} className="group rounded-2xl p-6 bg-slate-50 border border-slate-200/80 hover:border-sky-400 hover:shadow-lg transition-all duration-200 flex flex-col justify-between"><div><div className="w-12 h-12 rounded-xl bg-sky-600 text-white flex items-center justify-center mb-5 shadow-md shadow-sky-600/20 group-hover:scale-110 transition-transform"><Icon className="w-6 h-6" /></div><h3 className="text-xl font-bold text-slate-900 mb-2">{title}</h3><p className="text-sm text-slate-600 leading-relaxed mb-4">{description}</p><ul className="space-y-2 text-xs font-medium text-slate-700"><li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-600 shrink-0" /> Servicio con garantía</li><li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-600 shrink-0" /> Materiales de alta resistencia</li></ul></div><div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between"><span className="text-xs font-semibold text-slate-500">Atención en el día</span><a href={`${whatsappBaseUrl}&text=${encodeURIComponent(`Hola Multi-Servicios MYK, necesito asistencia con ${title}.`)}`} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-sky-700 hover:text-sky-900 inline-flex items-center gap-1">Pedir técnico <ChevronRight className="w-3.5 h-3.5" /></a></div></div>)}</div><div className="mt-8 rounded-2xl bg-gradient-to-r from-sky-900 to-slate-900 text-white p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-sky-800 shadow-lg"><div className="space-y-1 text-center sm:text-left"><span className="text-amber-400 font-bold text-xs uppercase tracking-wider flex items-center justify-center sm:justify-start gap-1"><Clock className="w-4 h-4" /> Despacho de Inmediato</span><h3 className="text-xl sm:text-2xl font-bold">¿Agua filtrando o desagüe colapsado?</h3><p className="text-slate-300 text-sm max-w-xl">Móviles equipados con repuestos universales para reparar el problema en la primera visita.</p></div><a href={whatsappBaseUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-md transition-transform active:scale-95 shrink-0 text-sm"><WhatsAppIcon className="w-4 h-4 fill-current" /> Solicitar Fontanero Ahora</a></div></div></section>
+    <section id="electricidad" className="py-16 lg:py-24 bg-slate-900 text-white relative"><div className="container"><div className="max-w-3xl mb-12"><span className="text-xs font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full inline-block mb-3">Servicio Esencial en el Hogar</span><h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display tracking-tight">Electricidad Básica para el Hogar</h2><p className="mt-3 text-base sm:text-lg text-slate-300">Intervenciones seguras con técnicos capacitados para resolver fallas eléctricas o renovar las conexiones de tus espacios.</p></div><div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">{electrical.map(([Icon, title, description]) => <div key={title} className="bg-slate-800/80 rounded-2xl p-6 border border-slate-700/80 hover:border-amber-400/60 transition-all duration-200"><div className="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-400/20 flex items-center justify-center mb-4"><Icon className="w-5 h-5" /></div><h3 className="font-bold text-lg text-white mb-2">{title}</h3><p className="text-xs text-slate-300 leading-relaxed mb-4">{description}</p><span className="text-[11px] font-semibold text-emerald-400 flex items-center gap-1"><CheckCircle2 className="w-3.5 h-3.5" /> Servicio en el día</span></div>)}</div><div className="mt-10 text-center"><a href={`${whatsappBaseUrl}&text=${encodeURIComponent("Hola Multi-Servicios MYK, requiero una intervención eléctrica básica en mi hogar hoy.")}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-7 py-3.5 rounded-xl shadow-lg transition-transform active:scale-95 text-sm"><WhatsAppIcon className="w-4 h-4 fill-slate-950" /> Solicitar Electricista por WhatsApp</a></div></div></section>
+    <section id="por-que-elegirnos" className="py-16 lg:py-24 bg-white relative"><div className="container"><div className="text-center max-w-2xl mx-auto mb-16"><span className="text-xs font-bold text-sky-700 uppercase tracking-widest bg-sky-50 border border-sky-100 px-3 py-1 rounded-full inline-block mb-3">Bloque de Confianza</span><h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-display tracking-tight">¿Por qué elegir a Multi-Servicios MYK?</h2><p className="mt-3 text-slate-600 text-base">Combinamos velocidad de respuesta con estándares empresariales de seriedad, pulcritud y garantía.</p></div><div className="grid md:grid-cols-3 gap-8">{[[Clock, "Atención el Mismo Día", "Coordinamos al instante vía WhatsApp y despachamos un técnico en tu franja horaria solicitada."], [BadgePercent, "Precios Claros Sin Sorpresas", "Te informamos el costo antes de tocar una sola pieza, sin recargos ocultos."], [ShieldCheck, "Garantía y Personal Verificado", "Técnicos identificados y con experiencia comprobada. Dejamos el área de trabajo limpia."]].map(([Icon, title, description]) => <div key={title as string} className="relative p-8 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-xs hover:shadow-md transition-shadow"><div className="w-14 h-14 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center mb-6"><Icon className="w-7 h-7" /></div><h3 className="text-xl font-bold text-slate-900 mb-3">{title as string}</h3><p className="text-sm text-slate-600 leading-relaxed">{description as string}</p><div className="mt-6 flex items-center gap-2 text-xs font-bold text-sky-700"><CheckCircle2 className="w-4 h-4" /> Confianza para tu familia</div></div>)}</div></div></section>
+    <section id="proceso" className="py-16 bg-slate-50 border-t border-slate-200"><div className="container"><div className="text-center max-w-xl mx-auto mb-12"><h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-display">¿Cómo solicitar tu servicio en 3 pasos?</h2><p className="text-sm text-slate-600 mt-2">Proceso pensado para resolver emergencias desde tu móvil en menos de 2 minutos.</p></div><div className="grid md:grid-cols-3 gap-6">{[["1", "Escríbenos por WhatsApp", "Envíanos una foto, audio o descripción de la avería."], ["2", "Confirmamos Hora y Técnico", "Te damos presupuesto inicial y asignamos el técnico más cercano."], ["3", "Reparación en el Día", "El técnico realiza el trabajo, prueba el funcionamiento y entrega garantía."]].map(([number, title, description]) => <div key={number} className="bg-white p-6 rounded-2xl border border-slate-200 text-center relative shadow-xs"><div className="w-10 h-10 rounded-full bg-sky-600 text-white font-bold text-base flex items-center justify-center mx-auto mb-4 shadow-sm">{number}</div><h3 className="font-bold text-base text-slate-900 mb-1">{title}</h3><p className="text-xs text-slate-600">{description}</p></div>)}</div></div></section>
+  </>;
+}
+
 function WhatsAppIcon({ className = "w-6 h-6" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 00-3.48-8.413Z" />
-    </svg>
-  );
+  return <svg viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 00-3.48-8.413Z" /></svg>;
 }
