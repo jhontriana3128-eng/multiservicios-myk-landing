@@ -20,9 +20,14 @@ import {
   HelpCircle
 } from "lucide-react";
 
-// Enlace WhatsApp configurado con el teléfono solicitado
-const WHATSAPP_BASE_URL =
-  "https://wa.me/+59896189551?text=Hola,%20necesito%20un%20servicio%20de%20urgencia%20en%20mi%20hogar";
+// Número de WhatsApp solicitado y helper para construir enlaces wa.me
+const WHATSAPP_NUMBER = "+59896189551";
+const WHATSAPP_BASE_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  "Hola, necesito un servicio de urgencia en mi hogar"
+)}`;
+
+const buildWhatsAppUrl = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
 const LOGO_SRC = "/manus-storage/277773937_471972211172070_4001061534051236060_n_301748f9.jpg";
 
@@ -34,19 +39,19 @@ export default function Home() {
 
   const handleCustomWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
-    const details = [
-      `Hola Multi-Servicios MYK, solicito un técnico a domicilio.`,
-      `• Tipo de Servicio: ${selectedService}`,
-      `• Nivel de Urgencia: ${urgencyLevel}`,
-      zone ? `• Zona/Barrio: ${zone}` : null,
-      customNote ? `• Detalle del problema: ${customNote}` : null,
-      `Por favor indíquenme disponibilidad inmediata para el día de hoy.`
-    ]
-      .filter(Boolean)
-      .join("\n");
+    // El mensaje se construye con los valores actuales del formulario y se
+    // convierte en un enlace wa.me listo para abrir el chat del negocio.
+    const message = [
+      "Hola Multi-Servicios MYK, solicito un técnico a domicilio.",
+      `Servicio: ${selectedService}`,
+      `Urgencia: ${urgencyLevel}`,
+      `Zona: ${zone || "No especificada"}`,
+      `Detalle: ${customNote || "No especificado"}`,
+      "Por favor indíquenme disponibilidad inmediata para el día de hoy."
+    ].join("\n");
 
-    const encoded = encodeURIComponent(details);
-    window.open(`https://wa.me/+59896189551?text=${encoded}`, "_blank", "noopener,noreferrer");
+    const dynamicWhatsAppUrl = buildWhatsAppUrl(message);
+    window.open(dynamicWhatsAppUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
