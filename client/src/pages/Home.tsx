@@ -45,8 +45,8 @@ export default function Home() {
       "Por favor indíquenme disponibilidad inmediata para el día de hoy.",
     ].join("\n");
 
-    const dynamicWhatsAppUrl = buildWhatsAppUrl(message);
-    window.open(dynamicWhatsAppUrl, "_blank", "noopener,noreferrer");
+    const urlWhatsApp = buildWhatsAppUrl(message);
+    window.open(urlWhatsApp, "_blank");
   };
 
   return (
